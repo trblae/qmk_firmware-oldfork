@@ -2,6 +2,7 @@
 
 static uint8_t input_mode;
 
+__attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex)
 {
   if (hex == 0x0) {
@@ -16,6 +17,10 @@ uint16_t hex_to_keycode(uint8_t hex)
 void set_unicode_input_mode(uint8_t os_target)
 {
   input_mode = os_target;
+}
+
+uint8_t get_unicode_input_mode(void) {
+  return input_mode;
 }
 
 __attribute__((weak))
