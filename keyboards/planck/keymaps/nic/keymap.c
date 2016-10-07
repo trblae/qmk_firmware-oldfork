@@ -11,12 +11,20 @@
 #define TENKEY_LAYER 4
 #define GAME_LAYER 5
 #define COLEMAK_LAYER 6
-#define RGBLIGHT_LAYER 7
 
 #define LSPO_KEY KC_9
 #define RSPC_KEY KC_0
+#define UNDERGLOW_LAYER 7
 
 #define PREVENT_STUCK_MODIFIERS
+
+// Tap Dance
+enum {
+  SFT_CAPS = 0,
+  LBRC_LCBR = 1,
+  RBRC_RCBR = 2,
+  TD_UNDERGLOW = 3,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = {
@@ -68,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS}
 },
 
-[RGBLIGHT_LAYER] = {
+[UNDERGLOW_LAYER] = {
   {KC_TRNS,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DEL},
   {KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TRNS,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_END,   KC_TRNS},
   {KC_TRNS,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  KC_TRNS,  KC_TRNS,  KC_TRNS},
@@ -78,14 +86,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_DEFAULT_LAYER_SET(QWERTY_LAYER),
-    [1] = ACTION_LAYER_TAP_KEY(LOWER_LAYER, KC_BSPC),  // Tap for backspace, hold for LOWER
-    [2] = ACTION_LAYER_TAP_KEY(UPPER_LAYER, KC_ENT),  // Tap for enter, hold for RAISE
-    [3] = ACTION_LAYER_TAP_KEY(KC_LCTL, KC_ESC),  // Tap for esc, hold for CTRL
+
+    // Tap for backspace, hold for LOWER
+    [1] = ACTION_LAYER_TAP_KEY(LOWER_LAYER, KC_BSPC),
+
+    // Tap for enter, hold for RAISE
+    [2] = ACTION_LAYER_TAP_KEY(UPPER_LAYER, KC_ENT),
+
+    // Tap for space, hold for SpaceFN
+    [3] = ACTION_LAYER_TAP_KEY(SPACEFN_LAYER, KC_SPC),
 
     [4] = ACTION_LAYER_TOGGLE(GAME_LAYER),
     [5] = ACTION_LAYER_TOGGLE(TENKEY_LAYER),
     [6] = ACTION_LAYER_TOGGLE(COLEMAK_LAYER),
-    [7] = ACTION_LAYER_TOGGLE(RGBLIGHT_LAYER),
+};
 
-    [10] = ACTION_LAYER_TAP_KEY(SPACEFN_LAYER, KC_SPC),  // Tap for space, hold for SpaceFN
+void underglow_tapdance (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    layer_invert(UNDERGLOW_LAYER);
+    return;
+  }
+
+  if (state->pressed) {
+    layer_on(UNDERGLOW_LAYER);
+  } else {
+    layer_off(UNDERGLOW_LAYER);
+  }
+}
+
+void underglow_tapdance_reset (qk_tap_dance_state_t *state, void *user_datae) {
+  if (state->count == 1) {
+    layer_off(UNDERGLOW_LAYER);
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+  [LBRC_LCBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
+  [RBRC_RCBR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+
+  [TD_UNDERGLOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, underglow_tapdance, underglow_tapdance_reset)
 };
