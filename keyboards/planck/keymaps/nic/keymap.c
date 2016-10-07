@@ -28,31 +28,31 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = {
-  {KC_TAB,        KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC},
-  {CTL_T(KC_ESC), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT},
-  {TD(SFT_CAPS), KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT},
-  {TD(TD_UNDERGLOW), KC_MEH,  KC_LALT,  KC_LGUI,  FUNC(1),  FUNC(3),  FUNC(3),  FUNC(2),  KC_LEFT,  KC_DOWN,  KC_UP,  KC_RGHT}
+  {KC_TAB,            KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC},
+  {CTL_T(KC_ESC),     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT},
+  {TD(SFT_CAPS),      KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT},
+  {TD(TD_UNDERGLOW),  KC_MEH,   KC_LALT,  KC_LGUI,  FUNC(1),  FUNC(3),  FUNC(3),  FUNC(2),  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT}
 },
 
 [UPPER_LAYER] = {
-  {KC_GRV,      KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,      KC_8,    KC_9,     KC_0,     KC_DELETE},
-  {_______,     KC_4,    KC_5,    KC_6,    KC_DOT,    _______,    _______,    KC_MINS,  KC_EQL,   TD(LBRC_LCBR),  TD(RBRC_RCBR),  KC_BSLS},
-  {_______,     KC_7,    KC_8,    KC_9,    KC_0,   _______,   _______,   _______,  _______,  KC_MUTE,  _______,  _______},
-  {FUNC(6),     KC_HYPER,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  KC_VOLD,  KC_VOLU,  KC_MFFD}
+  {KC_GRV,    KC_1,       KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,             KC_0,           KC_DELETE},
+  {_______,   KC_4,       KC_5,     KC_6,     KC_DOT,   _______,  _______,  KC_MINS,  KC_EQL,   TD(LBRC_LCBR),    TD(RBRC_RCBR),  KC_BSLS},
+  {_______,   KC_7,       KC_8,     KC_9,     KC_0,     _______,  _______,  _______,  _______,  KC_MUTE,          _______,        _______},
+  {FUNC(6),   KC_HYPER,   _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  KC_VOLD,          KC_VOLU,        KC_MFFD}
 },
 
 [LOWER_LAYER] = {
-  {KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_DELETE},
-  {_______,  KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE},
-  {_______,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,  _______,  _______},
+  {KC_TILD,  KC_EXLM,   KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_DELETE},
+  {_______,  KC_F1,     KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE},
+  {_______,  KC_F7,     KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,  _______,  _______},
   {FUNC(4),  KC_HYPER,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END}
 },
 
 [SPACEFN_LAYER] = {
-  {_______, _______, _______, _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), _______, KC_HOME, KC_UP,   KC_END,   _______, KC_DELETE},
-  {_______, _______, _______, _______, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______},
-  {_______, _______, _______, _______, _______, _______, KC_PGDN, LGUI(LSFT(KC_M)), _______, _______,  _______, RESET},
-  {FUNC(5), FUNC(0), _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
+  {_______, _______, _______, _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))),  _______, KC_HOME,           KC_UP,   KC_END,   _______, KC_DELETE},
+  {_______, _______, _______, _______, _______,           _______,                KC_PGUP, KC_LEFT,           KC_DOWN, KC_RIGHT, _______, _______},
+  {_______, _______, _______, _______, _______,           _______,                KC_PGDN, LGUI(LSFT(KC_M)),  _______, _______,  _______, RESET},
+  {FUNC(5), FUNC(0), _______, _______, _______,           _______,                _______, _______,           _______, _______,  _______, _______}
 },
 
 [TENKEY_LAYER] = {
@@ -63,22 +63,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [GAME_LAYER] = {
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,   _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_UP, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT,  KC_DOWN, KC_RIGHT}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT, KC_DOWN, KC_RIGHT}
 },
 
 [COLEMAK_LAYER] = {
   {_______,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  _______},
   {_______,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT},
   {_______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT},
-  {_______, _______, _______, _______, _______,   _______,   _______, _______, _______, _______, _______,  _______}
+  {_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 [UNDERGLOW_LAYER] = {
   {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______},
-  {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______},
+  {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______},
   {_______,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  _______,  _______,  _______},
   {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______}
 }
