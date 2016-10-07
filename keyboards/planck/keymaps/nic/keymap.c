@@ -111,7 +111,7 @@ void underglow_tapdance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void underglow_tapdance_reset (qk_tap_dance_state_t *state, void *user_datae) {
+void underglow_tapdance_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     layer_off(UNDERGLOW_LAYER);
   }
