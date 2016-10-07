@@ -15,6 +15,9 @@
 
 #define PREVENT_STUCK_MODIFIERS
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Tap Dance
 enum {
   SFT_CAPS = 0,
@@ -33,51 +36,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [UPPER_LAYER] = {
   {KC_GRV,      KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,      KC_8,    KC_9,     KC_0,     KC_DELETE},
-  {KC_TRNS,     KC_4,    KC_5,    KC_6,    KC_DOT,    KC_TRNS,    KC_TRNS,    KC_MINS,  KC_EQL,   TD(LBRC_LCBR),  TD(RBRC_RCBR),  KC_BSLS},
-  {KC_TRNS,     KC_7,    KC_8,    KC_9,    KC_0,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_MUTE,  KC_TRNS,  KC_TRNS},
-  {FUNC(6),     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPLY,  KC_VOLD,  KC_VOLU,  KC_MFFD}
+  {_______,     KC_4,    KC_5,    KC_6,    KC_DOT,    _______,    _______,    KC_MINS,  KC_EQL,   TD(LBRC_LCBR),  TD(RBRC_RCBR),  KC_BSLS},
+  {_______,     KC_7,    KC_8,    KC_9,    KC_0,   _______,   _______,   _______,  _______,  KC_MUTE,  _______,  _______},
+  {FUNC(6),     KC_HYPER,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  KC_VOLD,  KC_VOLU,  KC_MFFD}
 },
 
 [LOWER_LAYER] = {
   {KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_DELETE},
-  {KC_TRNS,  KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE},
-  {KC_TRNS,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS},
-  {FUNC(4),  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END}
+  {_______,  KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE},
+  {_______,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,  _______,  _______},
+  {FUNC(4),  KC_HYPER,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END}
 },
 
 [SPACEFN_LAYER] = {
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), KC_TRNS, KC_HOME, KC_UP,   KC_END,   KC_TRNS, KC_DELETE},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDN, LGUI(LSFT(KC_M)), KC_TRNS, KC_TRNS,  KC_TRNS, RESET},
-  {FUNC(5), FUNC(0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS}
+  {_______, _______, _______, _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), _______, KC_HOME, KC_UP,   KC_END,   _______, KC_DELETE},
+  {_______, _______, _______, _______, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______},
+  {_______, _______, _______, _______, _______, _______, KC_PGDN, LGUI(LSFT(KC_M)), _______, _______,  _______, RESET},
+  {FUNC(5), FUNC(0), _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
 },
 
 [TENKEY_LAYER] = {
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_BSPC},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_NLCK},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, KC_ENT},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,  KC_SPC,  KC_KP_0, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_BSPC},
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_NLCK},
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, KC_ENT},
+  {_______, _______, _______, _______, _______, KC_SPC,  KC_SPC,  KC_KP_0, _______, _______, _______, _______}
 },
 
 [GAME_LAYER] = {
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_UP, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH, KC_LEFT,  KC_DOWN, KC_RIGHT}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,   _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_UP, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT,  KC_DOWN, KC_RIGHT}
 },
 
 [COLEMAK_LAYER] = {
-  {KC_TRNS,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_TRNS},
-  {KC_TRNS,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT},
-  {KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_TRNS, KC_ENT},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS}
+  {_______,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  _______},
+  {_______,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT},
+  {_______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT},
+  {_______, _______, _______, _______, _______,   _______,   _______, _______, _______, _______, _______,  _______}
 },
 
 [UNDERGLOW_LAYER] = {
-  {KC_TRNS,  KC_PGUP,  KC_UP,    KC_PGDN,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DEL},
-  {KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TRNS,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_END,   KC_TRNS},
-  {KC_TRNS,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  KC_TRNS,  KC_TRNS,  KC_TRNS},
-  {KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS}
+  {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______},
+  {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______},
+  {_______,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  _______,  _______,  _______},
+  {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______}
 }
 };
 
