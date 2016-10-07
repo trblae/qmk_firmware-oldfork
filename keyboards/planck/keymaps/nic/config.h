@@ -3,6 +3,8 @@
 
 #include "../../config.h"
 
+#define TAPPING_TERM 200
+
 #define RGB_DI_PIN B2     // The pin your RGB strip is wired to
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 12
