@@ -6,7 +6,7 @@
 #define SPACEFN_LAYER 3
 #define TENKEY_LAYER 4
 #define GAME_LAYER 5
-#define COLEMAK_LAYER 6
+#define NORMAN_LAYER 6
 #define UNDERGLOW_LAYER 7
 
 // Tap Dance
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,                KC_1,       KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,           KC_0,     _______},
   {_______,               KC_4,       KC_5,     KC_6,     KC_DOT,   _______,  _______,  KC_MINS,  KC_EQL,   KC_LBRC,        KC_RBRC,  KC_BSLS},
   {_______,               KC_7,       KC_8,     KC_9,     KC_0,     _______,  _______,  _______,  _______,  KC_DOT,        _______,  _______},
-  {TG(COLEMAK_LAYER),     KC_HYPR,    _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  TD(VOLD_MUTE),  KC_VOLU,  KC_MFFD}
+  {TG(NORMAN_LAYER),     KC_HYPR,    _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  TD(VOLD_MUTE),  KC_VOLU,  KC_MFFD}
 },
 
 [LOWER_LAYER] = {
@@ -49,28 +49,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,           _______,  M(M_USERNAME),    _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))),  _______, KC_HOME,           KC_UP,   KC_END,   _______, KC_DELETE},
   {_______,           _______,  M(M_RANDDIGIT),   _______, _______,           _______,                KC_PGUP, KC_LEFT,           KC_DOWN, KC_RIGHT, _______, _______},
   {_______,           _______,  M(M_RANDLETTER),  _______, _______,           _______,                KC_PGDN, LGUI(LSFT(KC_M)),  _______, _______,  _______, RESET},
-  {TG(TENKEY_LAYER),  F(0),     _______,          _______, _______,           _______,                _______, _______,           _______, _______,  _______, _______}
+  {TG(TENKEY_LAYER),  _______,  _______,          _______, _______,           _______,                _______, _______,           _______, _______,  _______, _______}
 },
 
 [TENKEY_LAYER] = {
   {_______, _______,  _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_BSPC},
   {_______, _______,  _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_NLCK},
   {_______, _______,  _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, KC_ENT},
-  {F(0),    _______,  _______, _______, _______, KC_SPC,  KC_SPC,  KC_KP_0, _______, _______, _______, _______}
+  {_______, _______,  _______, _______, _______, _______, _______, KC_KP_0, _______, _______, _______, _______}
 },
 
 [GAME_LAYER] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______},
-  {F(0),    _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT, KC_DOWN, KC_RIGHT}
+  {_______,    _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT, KC_DOWN, KC_RIGHT}
 },
 
-[COLEMAK_LAYER] = {
-  {_______,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  _______},
-  {_______,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT},
-  {_______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT},
-  {F(0),     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+[NORMAN_LAYER] = {
+  {_______,  KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN,  _______},
+  {_______,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,     KC_QUOT},
+  {_______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT},
+  {_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 [UNDERGLOW_LAYER] = {
