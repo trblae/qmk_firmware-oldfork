@@ -4,33 +4,57 @@
 #include "version.h"
 
 #define DEFAULT 0
-#define LOWER 1
-#define NUMPAD 2
-#define NAV 3
+#define NORMAN 1
+#define LOWER 2
+#define NUMPAD 3
+#define NAV 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [DEFAULT] = KEYMAP(
   KC_EQUAL,           KC_1,     KC_2,     KC_3,     KC_4,   KC_5,   KC_ESCAPE,
-  KC_TAB,             KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,   _______,
+  KC_TAB,             KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,   TG(NORMAN),
   KC_LCTL,            KC_A,     KC_S,     KC_D,     KC_F,   KC_G,
   KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,   KC_B,   ALL_T(KC_GRAVE),
   KC_CAPSLOCK,        _______,  KC_LALT,  KC_LGUI,  MO(LOWER),
 
                                           KC_HOME,  KC_END,
                                                     KC_PGUP,
-                              F(1),   KC_DELETE,   KC_PGDOWN,
+                                KC_BSPACE,   F(1),  KC_PGDOWN,
 
 
     TG(NUMPAD),      KC_6,      KC_7,     KC_8,      KC_9,      KC_0,      KC_MINUS,
-    _______,         KC_Y,      KC_U,     KC_I,      KC_O,      KC_P,      KC_BSLS,
+    KC_LBRC,         KC_Y,      KC_U,     KC_I,      KC_O,      KC_P,      KC_RBRC,
                      KC_H,      KC_J,     KC_K,      KC_L,      KC_SCOLON, KC_QUOTE,
-    MOD_MEH,         KC_N,      KC_M,     KC_COMMA,  KC_DOT,    KC_SLASH,  KC_LSHIFT,
-                                F(0),     KC_LEFT,   KC_DOWN,    KC_UP,    KC_RIGHT,
+    MEH_T(KC_BSLS),  KC_N,      KC_M,     KC_COMMA,  KC_DOT,    KC_SLASH,  KC_LSHIFT,
+                                MO(NAV),  KC_LEFT,   KC_DOWN,    KC_UP,    KC_RIGHT,
 
     KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_NEXT_TRACK,
     KC_AUDIO_VOL_UP,
-    KC_AUDIO_VOL_DOWN,  KC_ENTER, F(2)
+    KC_AUDIO_VOL_DOWN,  F(3), F(2)
+),
+
+[NORMAN] = KEYMAP(
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  KC_Q,     KC_W,     KC_D,     KC_F,     KC_K,     _______,
+  _______,  KC_A,     KC_S,     KC_E,     KC_T,     KC_G,
+  _______,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     _______,
+  _______,  _______,  _______,  _______,  _______,
+
+                                          _______,  _______,
+                                                    _______,
+                                _______,   _______,  _______,
+
+
+    _______,  _______,  _______,  _______,  _______,  _______,   _______,
+    _______,  KC_J,     KC_U,     KC_R,     KC_L,     KC_SCOLON, _______,
+              KC_Y,     KC_N,     KC_I,     KC_O,     KC_H,      _______,
+    _______,  KC_P,     KC_M,     KC_COMMA, KC_DOT,   KC_SLASH,  _______,
+                        _______,  _______,  _______,  _______,   _______,
+
+    _______,  _______,
+    _______,
+    _______,  _______, _______
 ),
 
 [LOWER] = KEYMAP(
@@ -101,16 +125,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MUTE,_______,_______
 ),
 
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
   [0] = ACTION_LAYER_TAP_TOGGLE(NAV),
 
-  // Tap for backspace, hold for LOWER
-  [1] = ACTION_LAYER_TAP_KEY(LOWER, KC_BSPC),
+  // Tap for delete, hold for cmd
+  [1] = ACTION_MODS_TAP_KEY(MOD_LGUI, KC_DELETE),
 
   // Tap for space, hold for shift
   [2] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_SPC),
+
+  // Tap for enter, hold for cmd
+  [3] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_ENTER),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
