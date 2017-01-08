@@ -7,6 +7,7 @@ extern keymap_config_t keymap_config;
 #define QWERTY 0
 #define LOWER 1
 #define UPPER 2
+#define NORMAN 3
 
 enum {
   SFT_CAPS = 0,
@@ -18,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
     {CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
     {TD(SFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP, KC_ENTER },
-    {MO(LOWER), KC_LALT, KC_LGUI, F(1),  XXXXXXX, XXXXXXX, XXXXXXX, F(2),  KC_RGUI, KC_LEFT,  KC_DOWN,  KC_RIGHT }
+    {TG(NORMAN), KC_LALT, KC_LGUI, F(1),  XXXXXXX, XXXXXXX, XXXXXXX, F(2),  KC_RGUI, KC_LEFT,  KC_DOWN,  KC_RIGHT }
   },
   [LOWER] = {
     {KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL  },
@@ -31,7 +32,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS  },
     {_______, _______, _______, _______, _______, _______, _______,    _______,    _______,    _______,  KC_SLSH, KC_VOLU },
     {_______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD }
-  }
+  },
+  [NORMAN] = {
+  {_______,  KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN,  _______},
+  {_______,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,     KC_QUOT},
+  {_______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT},
+  {_______,  _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______}
+},
 };
 
 const uint16_t PROGMEM fn_actions[] = {
