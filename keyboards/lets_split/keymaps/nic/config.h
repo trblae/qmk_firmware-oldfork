@@ -8,6 +8,8 @@
 #define MATRIX_ROW_PINS { D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
+#define USE_SERIAL
+
 #define TAPPING_TERM 200
 
 #define randadd 53
