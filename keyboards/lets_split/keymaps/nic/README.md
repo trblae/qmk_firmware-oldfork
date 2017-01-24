@@ -5,14 +5,14 @@
 Flashing is easiest with the included script. You'll need `avrdude` installed.
 
 ```
-$ make dfu SUBPROJECT=rev2
+$ make avrdude SUBPROJECT=rev2
 ```
 
 Output:
 
 ```
 ~/code/qmk_firmware/keyboards/lets_split/keymaps/nic master*
-❯ make dfu SUBPROJECT=rev2
+❯ make avrdude SUBPROJECT=rev2
 Getting initial serial state
 Reset your Pro Micro then hit any key...
 

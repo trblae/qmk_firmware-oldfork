@@ -12,6 +12,8 @@ if ! [ $HEX_PATH ]; then
   exit
 fi
 
+echo "Going to flash $HEX_PATH"
+
 echo "Getting initial serial state"
 ls /dev/tty* > /tmp/1
 
