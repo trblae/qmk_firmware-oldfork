@@ -9,6 +9,8 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 10
 
+#define USE_SERIAL
+
 #define randadd 53
 #define randmul 181
 #define randmod 167
