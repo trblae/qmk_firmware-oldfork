@@ -3,7 +3,11 @@
 
 #include "../../rev2/config.h"
 
+#undef RGBLED_NUM
+
 #define TAPPING_TERM 200
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 10
 
 #define randadd 53
 #define randmul 181

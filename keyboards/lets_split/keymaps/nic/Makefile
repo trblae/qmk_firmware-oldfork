@@ -1,9 +1,7 @@
--include ../../../../Makefile
+ifndef QUANTUM_DIR
+	include ../../../../Makefile
+endif
 
 TAP_DANCE_ENABLE = yes
-
-avrdude:
-	make program
-	./flash.sh $(BUILD_DIR)/$(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP).hex
-
-.PHONY: avrdude
+RGBLIGHT_ENABLE = yes
+USE_I2C = no

@@ -2,19 +2,39 @@
 
 ## Flashing
 
-Flashing is easiest with the included script. You'll need `avrdude` installed.
+A custom Makefile target (`avrdude`) will help you flash your Pro Micro by finding your serial port automatically.
+
+From your keymap directory:
 
 ```
 $ make avrdude SUBPROJECT=rev2
 ```
 
-Output:
+Or from the keyboard directory
 
 ```
-~/code/qmk_firmware/keyboards/lets_split/keymaps/nic master*
-❯ make avrdude SUBPROJECT=rev2
-Getting initial serial state
-Reset your Pro Micro then hit any key...
+$ make rev2-nic-avrdude
+```
+
+Output:
+
+```bash
+$ make avrdude SUBPROJECT=rev2
+Making lets_split/rev2 with keymap nic and target avrdude
+
+avr-gcc (GCC) 4.9.3
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Size before:
+   text    data     bss     dec     hex filename
+      0   22286       0   22286    570e lets_split_rev2_nic.hex
+
+Compiling: ./tmk_core/common/command.c                                                              [OK]
+Linking: .build/lets_split_rev2_nic.elf                                                             [OK]
+Creating load file for Flash: .build/lets_split_rev2_nic.hex                                        [OK]
+Reset your Pro Micro then hit any key to continue...
 
 Connecting to programmer: .
 Found programmer: Id = "CATERIN"; type = S
@@ -33,23 +53,23 @@ avrdude: Device signature = 0x1e9587 (probably m32u4)
 avrdude: NOTE: "flash" memory has been specified, an erase cycle will be performed
          To disable this feature, specify the -D option.
 avrdude: erasing chip
-avrdude: reading input file "../../../..//.build/lets_split_rev2_nic.hex"
-avrdude: input file ../../../..//.build/lets_split_rev2_nic.hex auto detected as Intel Hex
-avrdude: writing flash (18772 bytes):
+avrdude: reading input file "./.build/lets_split_rev2_nic.hex"
+avrdude: input file ./.build/lets_split_rev2_nic.hex auto detected as Intel Hex
+avrdude: writing flash (22286 bytes):
 
-Writing | ################################################## | 100% 1.43s
+Writing | ################################################## | 100% 1.71s
 
-avrdude: 18772 bytes of flash written
-avrdude: verifying flash memory against ../../../..//.build/lets_split_rev2_nic.hex:
-avrdude: load data flash data from input file ../../../..//.build/lets_split_rev2_nic.hex:
-avrdude: input file ../../../..//.build/lets_split_rev2_nic.hex auto detected as Intel Hex
-avrdude: input file ../../../..//.build/lets_split_rev2_nic.hex contains 18772 bytes
+avrdude: 22286 bytes of flash written
+avrdude: verifying flash memory against ./.build/lets_split_rev2_nic.hex:
+avrdude: load data flash data from input file ./.build/lets_split_rev2_nic.hex:
+avrdude: input file ./.build/lets_split_rev2_nic.hex auto detected as Intel Hex
+avrdude: input file ./.build/lets_split_rev2_nic.hex contains 22286 bytes
 avrdude: reading on-chip flash data:
 
-Reading | ################################################## | 100% 0.19s
+Reading | ################################################## | 100% 0.24s
 
 avrdude: verifying ...
-avrdude: 18772 bytes of flash verified
+avrdude: 22286 bytes of flash verified
 
 avrdude: safemode: Fuses OK (E:CB, H:D8, L:FF)
 
