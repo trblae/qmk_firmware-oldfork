@@ -9,8 +9,7 @@ extern keymap_config_t keymap_config;
 #define UPPER_LAYER 2
 #define SPACEFN_LAYER 3
 #define TENKEY_LAYER 4
-#define GAME_LAYER 5
-#define NORMAN_LAYER 6
+#define NORMAN_LAYER 5
 
 // Tap Dance
 enum {
@@ -59,13 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,  _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_NLCK, \
   _______, _______,  _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PDOT, KC_ENT, \
   _______, _______,  _______, _______, _______, _______, _______, KC_KP_0, _______, _______, _______, _______ \
-),
-
-[GAME_LAYER] = KEYMAP( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, \
-  _______,    _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_LEFT, KC_DOWN, KC_RIGHT \
 ),
 
 [NORMAN_LAYER] = KEYMAP( \
