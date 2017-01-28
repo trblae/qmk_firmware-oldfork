@@ -13,7 +13,7 @@
 enum {
   SFT_CAPS = 0,
   TD_UNDERGLOW = 1,
-  VOLD_MUTE = 2,
+  MPLY_MUTE = 2,
 };
 
 // Macros
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,                KC_1,       KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,           KC_0,     _______},
   {_______,               KC_4,       KC_5,     KC_6,     KC_DOT,   _______,  _______,  KC_MINS,  KC_EQL,   KC_LBRC,        KC_RBRC,  KC_BSLS},
   {_______,               KC_7,       KC_8,     KC_9,     KC_0,     _______,  _______,  _______,  _______,  KC_DOT,        _______,  _______},
-  {TG(NORMAN_LAYER),     KC_HYPR,    _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  TD(VOLD_MUTE),  KC_VOLU,  KC_MFFD}
+  {TG(NORMAN_LAYER),     KC_HYPR,    _______,  _______,  _______,  _______,  _______,  _______,  TD(MPLY_MUTE),  KC_VOLD,  KC_VOLU,  KC_MFFD}
 },
 
 [LOWER_LAYER] = {
@@ -116,7 +116,7 @@ void underglow_tapdance_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [TD_UNDERGLOW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, underglow_tapdance, underglow_tapdance_reset),
-  [VOLD_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_VOLD, KC_MUTE)
+  [MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE)
 };
 
 // This bit of logic seeds a wee linear congruential random number generator
