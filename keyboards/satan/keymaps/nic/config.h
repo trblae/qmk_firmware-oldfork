@@ -7,7 +7,7 @@
 #define RGB_DI_PIN B2
 
 #undef RGBLED_NUM
-#define RGBLED_NUM 10
+#define RGBLED_NUM 20
 
 #undef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 10
