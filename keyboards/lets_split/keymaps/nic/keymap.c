@@ -10,6 +10,7 @@ extern keymap_config_t keymap_config;
 #define SPACEFN_LAYER 3
 #define TENKEY_LAYER 4
 #define NORMAN_LAYER 5
+#define UNDERGLOW_LAYER 6
 
 // Tap Dance
 enum {
@@ -29,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,            KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC, \
   CTL_T(KC_ESC),     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT, \
   TD(SFT_CAPS),      KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  MT(MOD_RSFT, KC_ENT), \
-  _______,  KC_MEH,   KC_LALT,  KC_LGUI,  F(1),     F(3),     F(3),     F(2),  MT(MOD_RGUI, KC_LEFT),  KC_DOWN,  KC_UP,    KC_RGHT \
+  MO(UNDERGLOW_LAYER),  KC_MEH,   KC_LALT,  KC_LGUI,  F(1),     F(3),     F(3),     F(2),  MT(MOD_RGUI, KC_LEFT),  KC_DOWN,  KC_UP,    KC_RGHT \
 ),
 
 [UPPER_LAYER] = KEYMAP( \
@@ -65,7 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,     KC_QUOT, \
   _______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  _______,  KC_ENT, \
   _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
-)
+),
+
+[UNDERGLOW_LAYER] = KEYMAP( \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+  _______,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  _______,  _______,  _______, \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______ \
+),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
