@@ -5,7 +5,6 @@
 
 #undef RGBLED_NUM
 
-
 #define TAPPING_TERM 200
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8
