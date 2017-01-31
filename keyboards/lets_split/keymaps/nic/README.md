@@ -4,13 +4,6 @@
 
 A custom Makefile target (`avrdude`) will help you flash your Pro Micro by finding your serial port automatically.
 
-From your keymap directory:
-
-```
-$ make avrdude SUBPROJECT=rev2
-```
-
-Or from the keyboard directory
 
 ```
 $ make rev2-nic-avrdude
