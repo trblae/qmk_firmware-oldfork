@@ -19,7 +19,7 @@ $ make rev2-nic-avrdude
 Output:
 
 ```bash
-$ make avrdude SUBPROJECT=rev2
+$ make rev2-nic-avrdude
 Making lets_split/rev2 with keymap nic and target avrdude
 
 avr-gcc (GCC) 4.9.3
@@ -29,12 +29,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 Size before:
    text    data     bss     dec     hex filename
-      0   22286       0   22286    570e lets_split_rev2_nic.hex
+      0   22282       0   22282    570a lets_split_rev2_nic.hex
 
 Compiling: ./tmk_core/common/command.c                                                              [OK]
 Linking: .build/lets_split_rev2_nic.elf                                                             [OK]
 Creating load file for Flash: .build/lets_split_rev2_nic.hex                                        [OK]
-Reset your Pro Micro then hit any key to continue...
+Reset your Pro Micro now
 
 Connecting to programmer: .
 Found programmer: Id = "CATERIN"; type = S
