@@ -13,6 +13,7 @@
 #define RGBLIGHT_VAL_STEP 17
 
 #define USE_SERIAL
+#define EE_HANDS
 
 #define randadd 53
 #define randmul 181
