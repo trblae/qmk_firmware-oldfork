@@ -1,7 +1,8 @@
 SRC += matrix.c \
 	   i2c.c \
 	   split_util.c \
-	   serial.c
+	   serial.c \
+	   ssd1306.c
 
 # MCU name
 #MCU = at90usb1287
@@ -76,10 +77,12 @@ CUSTOM_MATRIX = yes
 
 avrdude: build
 	ls /dev/tty* > /tmp/1; \
-	echo "Reset your Pro Micro then hit any key to continue..."; \
-	read -n 1 -s; \
-	ls /dev/tty* > /tmp/2; \
-	USB=`diff /tmp/1 /tmp/2 | grep '>' | sed -e 's/> //'`; \
+	echo "Reset your Pro Micro now"; \
+	while [[ -z $$USB ]]; do \
+	  sleep 1; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
 	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 .PHONY: avrdude
