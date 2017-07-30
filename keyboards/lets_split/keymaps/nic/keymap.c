@@ -17,6 +17,8 @@ extern keymap_config_t keymap_config;
 enum {
   SFT_CAPS = 0,
   MPLY_MUTE,
+  GUI_LEFT,
+  RSHIFT_ENT,
 };
 
 // Macros
@@ -27,24 +29,22 @@ enum macro_id {
 };
 
 // Albert customizations list TODO
-// Use different media buttons?
-// Replace NORMAN layer with something I would actually find more useful...
-// Maybe have bottom left key on right hand side be just space and nothing else?
-// Find a place to add print screen (KC_PSCR) and pause (KC_PAUS) and maybe scroll lock (KC_SLCK)?
+// Fill out GAMEPAD_LAYER with useful key layout.
 
+// The '/**/' indicates the part of the keys where it's split in a Let's Split keyboard.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = KEYMAP( \
-  KC_TAB,              KC_Q,   KC_W,    KC_E,    KC_R, KC_T, /**/ KC_Y,   KC_U, KC_I,                  KC_O,    KC_P,    KC_BSPC, \
-  CTL_T(KC_ESC),       KC_A,   KC_S,    KC_D,    KC_F, KC_G, /**/ KC_H,   KC_J, KC_K,                  KC_L,    KC_SCLN, KC_QUOT, \
-  TD(SFT_CAPS),        KC_Z,   KC_X,    KC_C,    KC_V, KC_B, /**/ KC_N,   KC_M, KC_COMM,               KC_DOT,  KC_SLSH, MT(MOD_RSFT, KC_ENT), \
-  MO(UNDERGLOW_LAYER), KC_MEH, KC_LALT, KC_LGUI, F(1), F(3), /**/ KC_SPC, F(2), MT(MOD_RGUI, KC_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
+  KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R, KC_T, /**/ KC_Y,   KC_U, KC_I,         KC_O,    KC_P,    KC_BSPC, \
+  CTL_T(KC_ESC), KC_A,   KC_S,    KC_D,    KC_F, KC_G, /**/ KC_H,   KC_J, KC_K,         KC_L,    KC_SCLN, KC_QUOT, \
+  TD(SFT_CAPS),  KC_Z,   KC_X,    KC_C,    KC_V, KC_B, /**/ KC_N,   KC_M, KC_COMM,      KC_DOT,  KC_SLSH, TD(RSHIFT_ENT), \
+  KC_LCTL,       KC_MEH, KC_LALT, KC_LGUI, F(1), F(3), /**/ KC_SPC, F(2), TD(GUI_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 [UPPER_LAYER] = KEYMAP( \
   KC_GRV,            KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    /**/ KC_6,    KC_7,    KC_8,          KC_9,    KC_0,    _______, \
   _______,           KC_4,    KC_5,    KC_6,    KC_DOT,  _______, /**/ _______, KC_MINS, KC_EQL,        KC_LBRC, KC_RBRC, KC_BSLS, \
-  _______,           KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR, KC_SLCK, KC_PAUS,       KC_DOT,  _______, _______, \
-  TG(GAMEPAD_LAYER), KC_HYPR, _______, KC_LGUI, _______, _______, /**/ KC_MUTE, _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, _______\
+  KC_MEH,            KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR, KC_SLCK, KC_PAUS,       KC_DOT,  _______, _______, \
+  TG(GAMEPAD_LAYER), KC_HYPR, _______, KC_LGUI, _______, _______, /**/ KC_MUTE, _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
 ),
 
 [LOWER_LAYER] = KEYMAP( \
@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [SPACEFN_LAYER] = KEYMAP( \
-  _______, _______, M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
-  _______, _______, M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RIGHT, _______, KC_DELETE, \
-  KC_LSFT, _______, M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
-  _______, KC_LCTL, KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
+  KC_HYPR,             _______, M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
+  _______,             _______, M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RIGHT, _______, KC_DELETE, \
+  KC_LSFT,             _______, M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
+  MO(UNDERGLOW_LAYER), _______, KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
 ),
 
 [TENKEY_LAYER] = KEYMAP( \
@@ -99,6 +99,8 @@ const uint16_t PROGMEM fn_actions[] = {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE)
+  [GUI_LEFT] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_RGUI)
+  [RSHIFT_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_RSFT)
 };
 
 // This bit of logic seeds a wee linear congruential random number generator
