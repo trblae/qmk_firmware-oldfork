@@ -13,6 +13,8 @@ extern keymap_config_t keymap_config;
 #define GAMEPAD_LAYER 5
 #define UNDERGLOW_LAYER 6
 
+#define KC_TO0 TO(QWERTY_LAYER)
+
 // Tap Dance
 enum {
   SFT_CAPS = 0,
@@ -31,7 +33,7 @@ enum macro_id {
 // Albert customizations list TODO
 // Fill out GAMEPAD_LAYER with useful key layout.
 
-// The '/**/' indicates the part of the keys where it's split in a Let's Split keyboard.
+// The '/**/' indicates the split in a Let's Split keyboard.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = KEYMAP( \
   KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R, KC_T, /**/ KC_Y,   KC_U, KC_I,         KC_O,    KC_P,    KC_BSPC, \
@@ -56,23 +58,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [SPACEFN_LAYER] = KEYMAP( \
   KC_HYPR,             _______, M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
-  _______,             _______, M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RIGHT, _______, KC_DELETE, \
+  _______,             _______, M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
   KC_LSFT,             _______, M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
-  MO(UNDERGLOW_LAYER), _______, KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
+  TG(UNDERGLOW_LAYER), _______, KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
 ),
 
 [TENKEY_LAYER] = KEYMAP( \
   _______, _______, _______, _______, _______, _______, /**/ KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_BSPC, \
   _______, _______, _______, _______, _______, _______, /**/ KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, \
   _______, _______, _______, _______, _______, _______, /**/ _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, KC_ENT, \
-  _______, _______, _______, _______, _______, _______, /**/ KC_NLCK, KC_KP_0, KC_KP_0, KC_PDOT, _______, _______ \
+  _______, _______, KC_LALT, _______, _______, _______, /**/ KC_NLCK, KC_KP_0, KC_KP_0, KC_PDOT, _______, _______ \
 ),
 
 [GAMEPAD_LAYER] = KEYMAP( \
-  _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______ \
+  KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, /**/ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, \
+  KC_ESC,  KC_A, KC_S, KC_D, KC_F, KC_G, /**/ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, \
+  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /**/ KC_N, KC_J, KC_COMM, KC_DOT, KC_SLSH, TD(RSHIFT_ENT), \
+  KC_LCTL, _______, KC_LALT, KC_LGUI, _______, KC_SPC, /**/ KC_SPC, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
 ),
 
 [UNDERGLOW_LAYER] = KEYMAP( \
