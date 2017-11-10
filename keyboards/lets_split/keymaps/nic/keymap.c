@@ -30,9 +30,6 @@ enum macro_id {
   M_RANDLETTER,
 };
 
-// Albert customizations list TODO
-// Fill out GAMEPAD_LAYER with useful key layout.
-
 // The '/**/' indicates the split in a Let's Split keyboard.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = KEYMAP( \
