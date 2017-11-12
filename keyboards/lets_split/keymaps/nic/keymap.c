@@ -28,61 +28,66 @@ enum macro_id {
   M_USERNAME,
   M_RANDDIGIT,
   M_RANDLETTER,
+  M_QWERTY_LAYER,
   M_LOWER_LAYER,
   M_UPPER_LAYER,
   M_SPACEFN_LAYER,
+  M_TENKEY_LAYER,
   M_GAMEPAD_LAYER,
 };
+
+#define M_TO0 M(M_QWERTY_LAYER)
+
 
 // The '/**/' indicates the split in a Let's Split keyboard.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = KEYMAP( \
-  KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R, KC_T, /**/ KC_Y,   KC_U, KC_I,         KC_O,    KC_P,    KC_BSPC, \
-  CTL_T(KC_ESC), KC_A,   KC_S,    KC_D,    KC_F, KC_G, /**/ KC_H,   KC_J, KC_K,         KC_L,    KC_SCLN, KC_QUOT, \
-  TD(SFT_CAPS),  KC_Z,   KC_X,    KC_C,    KC_V, KC_B, /**/ KC_N,   KC_M, KC_COMM,      KC_DOT,  KC_SLSH, TD(RSHIFT_ENT), \
-  KC_LCTL,       KC_MEH, KC_LALT, KC_LGUI, F(1), F(3), /**/ KC_SPC, F(2), TD(GUI_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
-),
-
-[UPPER_LAYER] = KEYMAP( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    /**/ KC_6,              KC_7,    KC_8,          KC_9,    KC_0,    _______, \
-  _______, KC_4,    KC_5,    KC_6,    KC_DOT,  _______, /**/ _______,           KC_MINS, KC_EQL,        KC_LBRC, KC_RBRC, KC_BSLS, \
-  KC_MEH,  KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,           KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_MUTE, \
-  _______, KC_HYPR, _______, KC_LGUI, _______, _______, /**/ TG(GAMEPAD_LAYER), _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
+  KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,             KC_T, /**/ KC_Y,   KC_U,             KC_I,         KC_O,    KC_P,    KC_BSPC, \
+  CTL_T(KC_ESC), KC_A,   KC_S,    KC_D,    KC_F,             KC_G, /**/ KC_H,   KC_J,             KC_K,         KC_L,    KC_SCLN, KC_QUOT, \
+  TD(SFT_CAPS),  KC_Z,   KC_X,    KC_C,    KC_V,             KC_B, /**/ KC_N,   KC_M,             KC_COMM,      KC_DOT,  KC_SLSH, TD(RSHIFT_ENT), \
+  KC_LCTL,       KC_MEH, KC_LALT, KC_LGUI, M(M_LOWER_LAYER), F(3), /**/ KC_SPC, M(M_UPPER_LAYER), TD(GUI_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 [LOWER_LAYER] = KEYMAP( \
-  KC_TILD,          KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, /**/ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
-  _______,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   /**/ KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  KC_LSFT,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  /**/ KC_F12,  _______, _______, _______, _______, _______, \
-  TG(TENKEY_LAYER), KC_HYPR, KC_LALT, _______, _______, _______, /**/ _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
+  KC_TILD,           KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, /**/ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+  _______,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   /**/ KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  KC_LSFT,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  /**/ KC_F12,  _______, _______, _______, _______, _______, \
+  M(M_TENKEY_LAYER), KC_HYPR, KC_LALT, _______, _______, _______, /**/ _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
+),
+
+[UPPER_LAYER] = KEYMAP( \
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    /**/ KC_6,               KC_7,    KC_8,          KC_9,    KC_0,    _______, \
+  _______, KC_4,    KC_5,    KC_6,    KC_DOT,  _______, /**/ _______,            KC_MINS, KC_EQL,        KC_LBRC, KC_RBRC, KC_BSLS, \
+  KC_MEH,  KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,            KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_MUTE, \
+  _______, KC_HYPR, _______, KC_LGUI, _______, _______, /**/ M(M_GAMEPAD_LAYER), _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
 ),
 
 [SPACEFN_LAYER] = KEYMAP( \
-  KC_HYPR,             _______, M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
-  _______,             _______, M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
-  KC_LSFT,             _______, M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
-  TG(UNDERGLOW_LAYER), _______, KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
+  KC_HYPR, _______,              M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
+  _______, _______,              M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
+  KC_LSFT, _______,              M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
+  _______, M(M_UNDERGLOW_LAYER), KC_LALT,         _______, _______,          _______,                /**/  _______, _______,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
 ),
 
 [TENKEY_LAYER] = KEYMAP( \
   _______, _______, _______, _______, _______, _______, /**/ KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_BSPC, \
   _______, _______, _______, _______, _______, _______, /**/ KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, \
   _______, _______, _______, _______, _______, _______, /**/ _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, KC_ENT, \
-  _______, _______, KC_LALT, _______, _______, _______, /**/ KC_NLCK, KC_KP_0, KC_KP_0, KC_PDOT, _______, _______ \
+  M_TO0,   _______, KC_LALT, _______, _______, _______, /**/ KC_NLCK, KC_KP_0, KC_KP_0, KC_PDOT, _______, _______ \
 ),
 
 [GAMEPAD_LAYER] = KEYMAP( \
   KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, /**/ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, \
   KC_ESC,  KC_A, KC_S, KC_D, KC_F, KC_G, /**/ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /**/ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, TD(RSHIFT_ENT), \
-  KC_LCTL, _______, KC_LALT, KC_LGUI, _______, KC_SPC, /**/ TO(QWERTY_LAYER), _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+  KC_LCTL, _______, KC_LALT, KC_LGUI, _______, KC_SPC, /**/ M_TO0, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
 ),
 
 [UNDERGLOW_LAYER] = KEYMAP( \
   _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, RESET,   _______, \
   _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, \
   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, /**/ RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______ \
+  _______, M_TO0,   _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______ \
 ),
 };
 
@@ -110,8 +115,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // lots of prime numbers everywhere...
 static uint16_t random_value = 157;
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   uint8_t clockbyte=0;
   clockbyte = TCNT1 % 256;
   uint8_t rval;
@@ -153,9 +157,29 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
       break;
 
+    case M_QWERTY_LAYER:
+      if (record->event.pressed) {
+          // turn underglow off for lower layer when using this specific macro
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0x00);
+          #endif
+          TO(QWERTY_LAYER)
+      }
+      break;
+
     // Attempt to light underglow but still function as a special key.
     // this updates eeprom
     // which only has a limited amount of writes per chip
+    // TODO: see if you can find out how to do this the way you want
+    // i.e. on tap, be a button, but on hold switch to a layer
+    // this needs to be done in a macro so i can turn on the rgb
+    // so something like ACTION_LAYER_TAP_KEY but the first part is a macro
+    // instead of a layer.
+    // ACTION_TAP_DANCE_FN(M(M_UPPER_LAYER))
+    // but maybe i don't really need this after all
+    // i would just be losing backspace on lower which i don't really care for
+    // and the enter on the upper which is more annoying anyway.
+    // hm...
     case M_LOWER_LAYER:
       if (record->event.pressed) {
           // turn underglow to green for lower layer
@@ -204,11 +228,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
       break;
 
+    case M_TENKEY_LAYER:
+      if (record->event.pressed) {
+          // turn underglow to yellow for tenkey layer
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0xff,0xff,0x00);
+          #endif
+          TO(TENKEY_LAYER)
+      }
+      break;
+
     case M_GAMEPAD_LAYER:
       if (record->event.pressed) {
-          // turn underglow to white for gamepad layer
+          // turn underglow to orange for gamepad layer
           #ifdef RGBLIGHT_ENABLE
-          rgblight_setrgb(0x00,0xff,0xff);
+          rgblight_setrgb(0xff,0x7e,0x00);
           #endif
           TO(GAMEPAD_LAYER)
       }
