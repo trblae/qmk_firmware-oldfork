@@ -28,6 +28,10 @@ enum macro_id {
   M_USERNAME,
   M_RANDDIGIT,
   M_RANDLETTER,
+  M_LOWER_LAYER,
+  M_UPPER_LAYER,
+  M_SPACEFN_LAYER,
+  M_GAMEPAD_LAYER,
 };
 
 // The '/**/' indicates the split in a Let's Split keyboard.
@@ -71,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, /**/ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, \
   KC_ESC,  KC_A, KC_S, KC_D, KC_F, KC_G, /**/ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /**/ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, TD(RSHIFT_ENT), \
-  KC_LCTL, _______, KC_LALT, KC_LGUI, _______, KC_SPC, /**/ _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+  KC_LCTL, _______, KC_LALT, KC_LGUI, _______, KC_SPC, /**/ TO(QWERTY_LAYER), _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
 ),
 
 [UNDERGLOW_LAYER] = KEYMAP( \
@@ -146,6 +150,67 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         rval = (random_value ^ clockbyte) % 26;
         register_code (KC_A + rval);
         unregister_code (KC_A + rval);
+      }
+      break;
+
+    // Attempt to light underglow but still function as a special key.
+    // this updates eeprom
+    // which only has a limited amount of writes per chip
+    case M_LOWER_LAYER:
+      if (record->event.pressed) {
+          // turn underglow to green for lower layer
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0xff,0x00,0x00);
+          #endif
+          // activates layer
+          layer_on(LOWER_LAYER)
+      } else {
+          // turn underglow to normal color (none)
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0x00);
+          #endif
+          // revert to normal layer
+          layer_off(LOWER_LAYER)
+      }
+      break;
+
+    case M_UPPER_LAYER:
+      if (record->event.pressed) {
+          // turn underglow to blue for upper layer
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0xff);
+          #endif
+          layer_on(UPPER_LAYER)
+      } else {
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0x00);
+          #endif
+          layer_off(UPPER_LAYER)
+      }
+      break;
+
+    case M_SPACEFN_LAYER:
+      if (record->event.pressed) {
+          // turn underglow to white for spacefn layer
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0xff,0xff,0xff);
+          #endif
+          layer_on(SPACEFN_LAYER)
+      } else {
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0x00);
+          #endif
+          layer_off(SPACEFN_LAYER)
+      }
+      break;
+
+    case M_GAMEPAD_LAYER:
+      if (record->event.pressed) {
+          // turn underglow to white for gamepad layer
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0xff,0xff);
+          #endif
+          TO(GAMEPAD_LAYER)
       }
       break;
   }
