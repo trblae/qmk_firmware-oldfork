@@ -19,6 +19,7 @@ enum {
   MPLY_MUTE,
   GUI_LEFT,
   RSHIFT_ENT,
+  RSHIFT_ENT_4EVER,
 };
 
 // Macros
@@ -103,11 +104,50 @@ const uint16_t PROGMEM fn_actions[] = {
     [3] = ACTION_LAYER_TAP_KEY(SPACEFN_LAYER, KC_SPC),
 };
 
+// what i hope to achieve with this:
+// tap the key twice, and it registers as a right shift click
+// tap the key once, then hold the key right after to activate right shift being held
+// tap the key any number of times (that isn't 2) will act as an enter press each tap
+// tap and hold the key any number of times, and hits enter each time and when held
+// will continue to press that key until released.
+//
+// tap dance, run this function on each tap
+void dance_each(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count != 2) {
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+    }
+}
+
+// tap dance, run this funciton when sequence is finished (timeout)
+void dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        register_code(KC_RSFT);
+        if (state->interrupted || !state->pressed) {
+            unregister_code(KC_RSFT);
+        }
+    } else {
+        if (state->pressed) {
+            register_code(KC_ENT);
+        }
+    }
+}
+
+// tap dance, run this function when resetting (on key up)
+void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+      unregister_code(KC_RSFT);
+    } else {
+      unregister_code(KC_ENT);
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
   [GUI_LEFT] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_RGUI),
-  [RSHIFT_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_RSFT)
+  [RSHIFT_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_RSFT),
+  [RSHIFT_ENT_4EVER] = ACTION_TAP_DANCE_FN_ADVANCED(dance_each, dance_finished, dance_reset)
 };
 
 // This bit of logic seeds a wee linear congruential random number generator
