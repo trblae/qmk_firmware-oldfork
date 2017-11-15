@@ -13,8 +13,6 @@ extern keymap_config_t keymap_config;
 #define GAMEPAD_LAYER 5
 #define UNDERGLOW_LAYER 6
 
-#define KC_TO0 TO(QWERTY_LAYER)
-
 // Tap Dance
 enum {
   SFT_CAPS = 0,
@@ -34,6 +32,7 @@ enum macro_id {
   M_SPACEFN_LAYER,
   M_TENKEY_LAYER,
   M_GAMEPAD_LAYER,
+  M_UNDERGLOW_LAYER,
 };
 
 #define M_TO0 M(M_QWERTY_LAYER)
@@ -163,7 +162,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0x00,0x00,0x00);
           #endif
-          TO(QWERTY_LAYER)
+          layer_move(QWERTY_LAYER);
       }
       break;
 
@@ -187,14 +186,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           rgblight_setrgb(0xff,0x00,0x00);
           #endif
           // activates layer
-          layer_on(LOWER_LAYER)
+          layer_on(LOWER_LAYER);
       } else {
           // turn underglow to normal color (none)
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0x00,0x00,0x00);
           #endif
           // revert to normal layer
-          layer_off(LOWER_LAYER)
+          layer_off(LOWER_LAYER);
       }
       break;
 
@@ -204,12 +203,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0x00,0x00,0xff);
           #endif
-          layer_on(UPPER_LAYER)
+          layer_on(UPPER_LAYER);
       } else {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0x00,0x00,0x00);
           #endif
-          layer_off(UPPER_LAYER)
+          layer_off(UPPER_LAYER);
       }
       break;
 
@@ -219,12 +218,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0xff,0xff,0xff);
           #endif
-          layer_on(SPACEFN_LAYER)
+          layer_on(SPACEFN_LAYER);
       } else {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0x00,0x00,0x00);
           #endif
-          layer_off(SPACEFN_LAYER)
+          layer_off(SPACEFN_LAYER);
       }
       break;
 
@@ -234,7 +233,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0xff,0xff,0x00);
           #endif
-          TO(TENKEY_LAYER)
+          layer_move(TENKEY_LAYER);
       }
       break;
 
@@ -244,7 +243,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           #ifdef RGBLIGHT_ENABLE
           rgblight_setrgb(0xff,0x7e,0x00);
           #endif
-          TO(GAMEPAD_LAYER)
+          layer_move(GAMEPAD_LAYER);
+      }
+      break;
+
+    case M_UNDERGLOW_LAYER:
+      if (record->event.pressed) {
+          // turn off color for underglow layer, since it will probably be changed anyway
+          #ifdef RGBLIGHT_ENABLE
+          rgblight_setrgb(0x00,0x00,0x00);
+          #endif
+          layer_move(UNDERGLOW_LAYER);
       }
       break;
   }
