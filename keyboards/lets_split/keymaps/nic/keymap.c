@@ -102,109 +102,80 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TAP_KEY(SPACEFN_LAYER, KC_SPC),
 };
 
+// tap dance, run this function on each tap
+void qk_tap_dance_pair_forever_each(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+  if (state->count > 2) {
+    register_code(pair->kc1);
+    unregister_code(pair->kc1);
+  }
+}
+
+// tap dance, run this funciton when sequence is finished (timeout)
+// or if interrupted, e.g., by another key press
+void qk_tap_dance_pair_forever_finished(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+  switch (state->count) {
+  case 1:
+    register_code(pair->kc1);
+    if (state->interrupted || !state->pressed) {
+      unregister_code(pair->kc1);
+    }
+    break;
+  case 2:
+    register_code(pair->kc2);
+    if (!state->pressed) {
+      unregister_code(pair->kc2);
+    }
+    break;
+  default:
+    // register 1st and 2nd taps if it gets passed 2 presses
+    // this keeps the count of the actual presses but the
+    // timing does seem a little off when finally done
+    // since it will register 2 quick taps
+    register_code(pair->kc1);
+    unregister_code(pair->kc1);
+    register_code(pair->kc1);
+    unregister_code(pair->kc1);
+    if (state->pressed) {
+      register_code(pair->kc1);
+    }
+  }
+}
+
+// tap dance, run this function when resetting (on key up)
+void qk_tap_dance_pair_forever_reset(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+  if (state->count == 2) {
+    unregister_code(pair->kc2);
+  } else {
+    unregister_code(pair->kc1);
+  }
+}
+
 // what i hope to achieve with this:
-// tap the key once, this registers one enter tap
-// press the key once and hold it, this activates enter being held until let go
-// tap the key twice, this registers one right shift tap
-// tap they key once, then immediately press again and hold it (double tap then hold), this activates right shift shift being held until let go
-// tap the key any number of times (that isn't 2) will act as an enter tap for each tap
-// tap the key any number of times, and on then hold it, this taps enter for each tap and then holds the enter key until let go
-//
-// right shift and enter
-// tap dance, run this function on each tap
-void dance_ent_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count > 2) {
-    register_code(KC_ENT);
-    unregister_code(KC_ENT);
+// tap the key once, this registers one `kc1` tap
+// press the key once and hold it, this activates `kc1` being held until let go
+// tap the key twice, this registers one `kc2` tap
+// tap they key once, then immediately press again and hold it (double tap hold), this activates `kc2` being held until let go
+// tap the key any number of times (that isn't 2), this will act as one `kc1` tap for each tap
+// tap the key any number of times, and on then hold it, this taps `kc1` for each tap and then holds that key until let go
+// this is really only useful if the `kc2` is a modifier
+// this overcomes the default ACTION_TAP_DANCE_DOUBLE
+// by allowing more usage of key taps that is not just 1 or 2
+#define ACTION_TAP_DANCE_DOUBLE_FOREVER(kc1, kc2) { \
+  .fn = { qk_tap_dance_pair_forever_each, qk_tap_dance_pair_forever_finished, qk_tap_dance_pair_forever_reset }, \
+  .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }),  \
   }
-}
-
-// tap dance, run this funciton when sequence is finished (timeout)
-void dance_shift_ent_finished(qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->count) {
-  case 1:
-    register_code(KC_ENT);
-    if (state->interrupted || !state->pressed) {
-      unregister_code(KC_ENT);
-    }
-    break;
-  case 2:
-    register_code(KC_RSFT);
-    if (!state->pressed) {
-      unregister_code(KC_RSFT);
-    }
-    break;
-  default:
-    // register 1st and 2nd enter if it gets passed 2
-    register_code(KC_ENT);
-    unregister_code(KC_ENT);
-    register_code(KC_ENT);
-    unregister_code(KC_ENT);
-    if (state->pressed) {
-      register_code(KC_ENT);
-    }
-  }
-}
-
-// tap dance, run this function when resetting (on key up)
-void dance_shift_ent_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {
-    unregister_code(KC_RSFT);
-  } else {
-    unregister_code(KC_ENT);
-  }
-}
-
-// super key and left arrow
-// tap dance, run this function on each tap
-void dance_left_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count > 2) {
-    register_code(KC_LEFT);
-    unregister_code(KC_LEFT);
-  }
-}
-
-// tap dance, run this funciton when sequence is finished (timeout)
-void dance_rgui_left_finished(qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->count) {
-  case 1:
-    register_code(KC_LEFT);
-    if (state->interrupted || !state->pressed) {
-      unregister_code(KC_LEFT);
-    }
-    break;
-  case 2:
-    register_code(KC_RGUI);
-    if (!state->pressed) {
-      unregister_code(KC_RGUI);
-    }
-    break;
-  default:
-    // register 1st and 2nd left if it gets passed 2
-    register_code(KC_LEFT);
-    unregister_code(KC_LEFT);
-    register_code(KC_LEFT);
-    unregister_code(KC_LEFT);
-    if (state->pressed) {
-      register_code(KC_LEFT);
-    }
-  }
-}
-
-// tap dance, run this function when resetting (on key up)
-void dance_rgui_left_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {
-    unregister_code(KC_RGUI);
-  } else {
-    unregister_code(KC_LEFT);
-  }
-}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
-  [GUI_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(dance_left_each, dance_rgui_left_finished, dance_rgui_left_reset),
-  [RSHIFT_ENT] = ACTION_TAP_DANCE_FN_ADVANCED(dance_ent_each, dance_shift_ent_finished, dance_shift_ent_reset)
+  [GUI_LEFT] = ACTION_TAP_DANCE_DOUBLE_FOREVER(KC_LEFT, KC_RGUI),
+  [RSHIFT_ENT] = ACTION_TAP_DANCE_DOUBLE_FOREVER(KC_ENT, KC_RSFT)
 };
 
 // This bit of logic seeds a wee linear congruential random number generator
