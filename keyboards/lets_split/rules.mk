@@ -85,4 +85,26 @@ avrdude: build
 	done; \
 	avrdude -v -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
-.PHONY: avrdude
+# These 2 targets are for the left and right sides of a Let's Split
+# with EE_HANDS enabled. Each side should be flashed separately.
+avrdude-lets-split-left: build
+	ls /dev/tty* > /tmp/1; \
+	echo "Reset your LEFT Pro Micro now"; \
+	while [ -z $$USB ]; do \
+	  sleep 1; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
+	avrdude -v -p $(MCU) -c avr109 -P $$USB -U eeprom:w:keyboards/lets_split/eeprom-lefthand.eep -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
+avrdude-lets-split-right: build
+	ls /dev/tty* > /tmp/1; \
+	echo "Reset your RIGHT Pro Micro now"; \
+	while [ -z $$USB ]; do \
+	  sleep 1; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
+	avrdude -v -p $(MCU) -c avr109 -P $$USB -U eeprom:w:keyboards/lets_split/eeprom-righthand.eep -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
+.PHONY: avrdude avrdude-lets-split-left avrdude-lets-split-right
