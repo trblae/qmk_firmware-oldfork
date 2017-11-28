@@ -40,31 +40,31 @@ enum macro_id {
 // The '/**/' indicates the split in a Let's Split keyboard.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY_LAYER] = KEYMAP( \
-  KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,             KC_T, /**/ KC_Y,   KC_U,             KC_I,         KC_O,    KC_P,    KC_BSPC, \
-  CTL_T(KC_ESC), KC_A,   KC_S,    KC_D,    KC_F,             KC_G, /**/ KC_H,   KC_J,             KC_K,         KC_L,    KC_SCLN, KC_QUOT, \
-  TD(SFT_CAPS),  KC_Z,   KC_X,    KC_C,    KC_V,             KC_B, /**/ KC_N,   KC_M,             KC_COMM,      KC_DOT,  KC_SLSH, TD(RSHIFT_ENT), \
-  KC_LCTL,       KC_MEH, KC_LGUI, KC_LALT, M(M_LOWER_LAYER), F(3), /**/ KC_SPC, M(M_UPPER_LAYER), TD(GUI_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
+  KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,             KC_T, /**/ KC_Y,   KC_U,             KC_I,            KC_O,    KC_P,    KC_BSPC, \
+  CTL_T(KC_ESC), KC_A,   KC_S,    KC_D,    KC_F,             KC_G, /**/ KC_H,   KC_J,             KC_K,            KC_L,    KC_SCLN, KC_QUOT, \
+  TD(SFT_CAPS),  KC_Z,   KC_X,    KC_C,    KC_V,             KC_B, /**/ KC_N,   KC_M,             KC_COMM,         KC_DOT,  KC_SLSH, RSFT_T(KC_ENT), \
+  KC_LCTL,       KC_MEH, KC_LGUI, KC_LALT, M(M_LOWER_LAYER), F(3), /**/ KC_SPC, M(M_UPPER_LAYER), RGUI_T(KC_LEFT), KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 [LOWER_LAYER] = KEYMAP( \
   KC_TILD, KC_EXLM,           KC_AT,   KC_HASH, KC_DLR,  KC_PERC, /**/ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
-  _______, KC_F1,             KC_F2,   KC_F3,   KC_F4,   KC_F5,   /**/ KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  KC_LSFT, KC_F7,             KC_F8,   KC_F9,   KC_F10,  KC_F11,  /**/ KC_F12,  _______, _______, _______, _______, _______, \
-  _______, M(M_TENKEY_LAYER), KC_HYPR, KC_LALT, _______, _______, /**/ _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
+  KC_ESC,  KC_F1,             KC_F2,   KC_F3,   KC_F4,   KC_F5,   /**/ KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  KC_LSFT, KC_F7,             KC_F8,   KC_F9,   KC_F10,  KC_F11,  /**/ KC_F12,  KC_F13,  _______, _______, _______, KC_ENT, \
+  _______, M(M_TENKEY_LAYER), KC_HYPR, _______, _______, _______, /**/ _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
 ),
 
 [UPPER_LAYER] = KEYMAP( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    /**/ KC_6,               KC_7,    KC_8,          KC_9,    KC_0,    _______, \
   _______, KC_4,    KC_5,    KC_6,    KC_DOT,  _______, /**/ _______,            KC_MINS, KC_EQL,        KC_LBRC, KC_RBRC, KC_BSLS, \
-  KC_HYPR, KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,            KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_MUTE, \
+  KC_HYPR, KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,            KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_RSFT, \
   _______, KC_MEH,  KC_LGUI, _______, _______, _______, /**/ M(M_GAMEPAD_LAYER), _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
 ),
 
 [SPACEFN_LAYER] = KEYMAP( \
-  KC_HYPR, _______,              M(M_USERNAME),   _______, LGUI(LSFT(KC_4)), LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
-  _______, _______,              M(M_RANDDIGIT),  _______, _______,          _______,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
-  KC_LSFT, _______,              M(M_RANDLETTER), _______, _______,          _______,                /**/  _______, LGUI(LSFT(KC_M)), _______, _______,  _______, _______, \
-  _______, M(M_UNDERGLOW_LAYER), _______,         KC_LALT, _______,          _______,                /**/  KC_CALC, KC_MSEL,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
+  KC_HYPR, _______,              M(M_USERNAME),   _______, LGUI(LSFT(KC_4)),   LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
+  _______, _______,              M(M_RANDDIGIT),  _______, _______,            KC_MENU,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
+  KC_LSFT, _______,              M(M_RANDLETTER), _______, LGUI(LSFT(KC_SPC)), KC_APP,                 /**/  KC_JYEN, LGUI(LSFT(KC_M)), KC_MUTE, KC_VOLD,  KC_VOLU, _______, \
+  _______, M(M_UNDERGLOW_LAYER), _______,         _______, _______,            _______,                /**/  KC_CALC, KC_MSEL,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
 ),
 
 [TENKEY_LAYER] = KEYMAP( \
@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [GAMEPAD_LAYER] = KEYMAP( \
-  KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, /**/ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, \
-  KC_ESC,  KC_A, KC_S, KC_D, KC_F, KC_G, /**/ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /**/ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, TD(RSHIFT_ENT), \
+  KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, /**/ KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_BSPC, \
+  KC_ESC,  KC_A, KC_S, KC_D, KC_F, KC_G, /**/ KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
+  KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, /**/ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, \
   KC_LCTL, _______, _______, KC_LALT, _______, KC_SPC, /**/ M_TO0, _______, KC_1, KC_2, KC_3, KC_4 \
 ),
 
@@ -156,6 +156,9 @@ void qk_tap_dance_pair_forever_reset(qk_tap_dance_state_t *state, void *user_dat
   }
 }
 
+// In actuality: reinventing the wheel... RSFT_T(KC_ENT)
+// In my defense, i could have sworn multiple taps for this didn't do anything.
+// That might have only been true for tap dance only keys.
 // what i hope to achieve with this:
 // tap the key once, this registers one `kc1` tap
 // press the key once and hold it, this activates `kc1` being held until let go
