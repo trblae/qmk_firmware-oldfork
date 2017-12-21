@@ -79,14 +79,15 @@ avrdude: build
 	ls /dev/tty* > /tmp/1; \
 	echo "Reset your Pro Micro now"; \
 	while [ -z $$USB ]; do \
-	  sleep 1; \
+	  sleep 0.5; \
 	  ls /dev/tty* > /tmp/2; \
 	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
 	done; \
-	avrdude -v -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 # These 2 targets are for the left and right sides of a Let's Split
 # with EE_HANDS enabled. Each side should be flashed separately.
+# The eeprom flash only needs to be done once?
 avrdude-lets-split-left: build
 	ls /dev/tty* > /tmp/1; \
 	echo "Reset your LEFT Pro Micro now"; \

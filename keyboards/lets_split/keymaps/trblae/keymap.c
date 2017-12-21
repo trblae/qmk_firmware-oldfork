@@ -17,8 +17,6 @@ extern keymap_config_t keymap_config;
 enum {
   SFT_CAPS = 0,
   MPLY_MUTE,
-  GUI_LEFT,
-  RSHIFT_ENT,
 };
 
 // Macros
@@ -56,13 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [UPPER_LAYER] = KEYMAP( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    /**/ KC_6,               KC_7,    KC_8,          KC_9,    KC_0,    _______, \
   _______, KC_4,    KC_5,    KC_6,    KC_DOT,  _______, /**/ _______,            KC_MINS, KC_EQL,        KC_LBRC, KC_RBRC, KC_BSLS, \
-  KC_HYPR, KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,            KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_RSFT, \
-  _______, KC_MEH,  KC_LGUI, _______, _______, _______, /**/ M(M_GAMEPAD_LAYER), _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
+  KC_LSFT, KC_7,    KC_8,    KC_9,    KC_0,    _______, /**/ KC_PSCR,            KC_SLCK, KC_PAUS,       KC_DOT,  _______, KC_RSFT, \
+  _______, KC_HYPR, KC_LGUI, _______, _______, _______, /**/ M(M_GAMEPAD_LAYER), _______, TD(MPLY_MUTE), KC_VOLD, KC_VOLU, KC_RCTL \
 ),
 
 [SPACEFN_LAYER] = KEYMAP( \
-  KC_HYPR, _______,              M(M_USERNAME),   _______, LGUI(LSFT(KC_4)),   LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
-  _______, _______,              M(M_RANDDIGIT),  _______, _______,            KC_MENU,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
+  KC_HYPR, _______,              M(M_USERNAME),   KC_PGUP, LGUI(LSFT(KC_4)),   LGUI(LCTL(LSFT(KC_4))), /**/  KC_PGUP, KC_HOME,          KC_UP,   KC_END,   _______, KC_INS, \
+  _______, _______,              M(M_RANDDIGIT),  KC_PGDN, _______,            KC_MENU,                /**/  KC_PGDN, KC_LEFT,          KC_DOWN, KC_RGHT,  _______, KC_DELETE, \
   KC_LSFT, _______,              M(M_RANDLETTER), _______, LGUI(LSFT(KC_SPC)), KC_APP,                 /**/  KC_JYEN, LGUI(LSFT(KC_M)), KC_MUTE, KC_VOLD,  KC_VOLU, _______, \
   _______, M(M_UNDERGLOW_LAYER), _______,         _______, _______,            _______,                /**/  KC_CALC, KC_MSEL,          KC_MPLY, KC_MSTP,  KC_MPRV, KC_MNXT \
 ),
@@ -84,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [UNDERGLOW_LAYER] = KEYMAP( \
   _______, RESET,   _______, _______, _______, _______, /**/ _______, _______, _______, _______, RESET,   _______, \
   _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, \
-  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, /**/ RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, \
+  _______, RGB_TOG, RGB_MOD, _______, RGB_HUI, RGB_HUD, /**/ RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, \
   _______, M_TO0,   _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______ \
 ),
 };
@@ -102,83 +100,9 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TAP_KEY(SPACEFN_LAYER, KC_SPC),
 };
 
-// tap dance, run this function on each tap
-void qk_tap_dance_pair_forever_each(qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-  if (state->count > 2) {
-    register_code(pair->kc1);
-    unregister_code(pair->kc1);
-  }
-}
-
-// tap dance, run this funciton when sequence is finished (timeout)
-// or if interrupted, e.g., by another key press
-void qk_tap_dance_pair_forever_finished(qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-  switch (state->count) {
-  case 1:
-    register_code(pair->kc1);
-    if (state->interrupted || !state->pressed) {
-      unregister_code(pair->kc1);
-    }
-    break;
-  case 2:
-    register_code(pair->kc2);
-    if (!state->pressed) {
-      unregister_code(pair->kc2);
-    }
-    break;
-  default:
-    // register 1st and 2nd taps if it gets passed 2 presses
-    // this keeps the count of the actual presses but the
-    // timing does seem a little off when finally done
-    // since it will register 2 quick taps
-    register_code(pair->kc1);
-    unregister_code(pair->kc1);
-    register_code(pair->kc1);
-    unregister_code(pair->kc1);
-    if (state->pressed) {
-      register_code(pair->kc1);
-    }
-  }
-}
-
-// tap dance, run this function when resetting (on key up)
-void qk_tap_dance_pair_forever_reset(qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-
-  if (state->count == 2) {
-    unregister_code(pair->kc2);
-  } else {
-    unregister_code(pair->kc1);
-  }
-}
-
-// In actuality: reinventing the wheel... RSFT_T(KC_ENT)
-// In my defense, i could have sworn multiple taps for this didn't do anything.
-// That might have only been true for tap dance only keys.
-// what i hope to achieve with this:
-// tap the key once, this registers one `kc1` tap
-// press the key once and hold it, this activates `kc1` being held until let go
-// tap the key twice, this registers one `kc2` tap
-// tap they key once, then immediately press again and hold it (double tap hold), this activates `kc2` being held until let go
-// tap the key any number of times (that isn't 2), this will act as one `kc1` tap for each tap
-// tap the key any number of times, and on then hold it, this taps `kc1` for each tap and then holds that key until let go
-// this is really only useful if the `kc2` is a modifier
-// this overcomes the default ACTION_TAP_DANCE_DOUBLE
-// by allowing more usage of key taps that is not just 1 or 2
-#define ACTION_TAP_DANCE_DOUBLE_FOREVER(kc1, kc2) { \
-  .fn = { qk_tap_dance_pair_forever_each, qk_tap_dance_pair_forever_finished, qk_tap_dance_pair_forever_reset }, \
-  .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }),  \
-  }
-
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
-  [GUI_LEFT] = ACTION_TAP_DANCE_DOUBLE_FOREVER(KC_LEFT, KC_RGUI),
-  [RSHIFT_ENT] = ACTION_TAP_DANCE_DOUBLE_FOREVER(KC_ENT, KC_RSFT)
 };
 
 // This bit of logic seeds a wee linear congruential random number generator
@@ -229,10 +153,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case M_QWERTY_LAYER:
     if (record->event.pressed) {
-      // turn underglow off for lower layer when using this specific macro
-      #ifdef RGBLIGHT_ENABLE
-      rgblight_setrgb(0x00,0x00,0x00);
-      #endif
       layer_move(QWERTY_LAYER);
     }
     break;
@@ -248,9 +168,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       layer_on(LOWER_LAYER);
     } else {
       // turn underglow to normal color (none)
-      #ifdef RGBLIGHT_ENABLE
-      rgblight_setrgb(0x00,0x00,0x00);
-      #endif
+      //#ifdef RGBLIGHT_ENABLE
+      //rgblight_setrgb(0x00,0x00,0x00);
+      //#endif
       // revert to normal layer
       layer_off(LOWER_LAYER);
     }
@@ -264,13 +184,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       #endif
       layer_on(UPPER_LAYER);
     } else {
-      #ifdef RGBLIGHT_ENABLE
-      rgblight_setrgb(0x00,0x00,0x00);
-      #endif
+      //#ifdef RGBLIGHT_ENABLE
+      //rgblight_setrgb(0x00,0x00,0x00);
+      //#endif
       layer_off(UPPER_LAYER);
     }
     break;
 
+  // not currently used right now...
   case M_SPACEFN_LAYER:
     if (record->event.pressed) {
       // turn underglow to white for spacefn layer
